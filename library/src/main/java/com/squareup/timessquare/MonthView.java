@@ -27,19 +27,19 @@ public class MonthView extends LinearLayout {
 
   public static MonthView create(ViewGroup parent, LayoutInflater inflater,
       DateFormat weekdayNameFormat, Listener listener, Calendar today, int dividerColor,
-      int dayBackgroundResId, int dayTextColorResId, int titleTextStyle, boolean displayHeader,
+      int dayBackgroundResId, int dayTextColorResId, int titleTextStyle, int rowSpacingDp, boolean displayHeader,
       int headerTextColor, boolean showDayNamesHeaderRowView, Locale locale,
-      DayViewAdapter adapter) {
+      DayViewAdapter adapter, boolean drawDividers) {
     return create(parent, inflater, weekdayNameFormat, listener, today, dividerColor,
-        dayBackgroundResId, dayTextColorResId, titleTextStyle, displayHeader, headerTextColor,
-        showDayNamesHeaderRowView, null, locale, adapter);
+        dayBackgroundResId, dayTextColorResId, titleTextStyle, rowSpacingDp, displayHeader, headerTextColor,
+        showDayNamesHeaderRowView, null, locale, adapter, drawDividers);
   }
 
   public static MonthView create(ViewGroup parent, LayoutInflater inflater,
       DateFormat weekdayNameFormat, Listener listener, Calendar today, int dividerColor,
-      int dayBackgroundResId, int dayTextColorResId, int titleTextStyle, boolean displayHeader,
+      int dayBackgroundResId, int dayTextColorResId, int titleTextStyle, int rowSpacingDp, boolean displayHeader,
       int headerTextColor, boolean displayDayNamesHeaderRowView,
-      List<CalendarCellDecorator> decorators, Locale locale, DayViewAdapter adapter) {
+      List<CalendarCellDecorator> decorators, Locale locale, DayViewAdapter adapter, boolean drawDividers) {
     final MonthView view = (MonthView) inflater.inflate(R.layout.month, parent, false);
 
     // Set the views
@@ -55,6 +55,8 @@ public class MonthView extends LinearLayout {
     view.setDayTextColor(dayTextColorResId);
     view.setDisplayHeader(displayHeader);
     view.setHeaderTextColor(headerTextColor);
+    view.setRowSpacingDp(rowSpacingDp);
+    view.setDrawDividers(drawDividers);
 
     if (dayBackgroundResId != 0) {
       view.setDayBackground(dayBackgroundResId);
@@ -172,12 +174,21 @@ public class MonthView extends LinearLayout {
     grid.setDayBackground(resId);
   }
 
+  public void setRowSpacingDp(int dp) {
+    grid.setRowSpacing(dp);
+    grid.invalidate();
+  }
+
   public void setDayTextColor(int resId) {
     grid.setDayTextColor(resId);
   }
 
   public void setDayViewAdapter(DayViewAdapter adapter) {
     grid.setDayViewAdapter(adapter);
+  }
+
+  public void setDrawDividers(boolean drawDividers) {
+    grid.setDrawDividers(drawDividers);
   }
 
   public void setDisplayHeader(boolean displayHeader) {

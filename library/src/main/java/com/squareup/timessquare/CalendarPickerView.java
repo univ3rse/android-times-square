@@ -84,6 +84,8 @@ public class CalendarPickerView extends ListView {
   private int dayBackgroundResId;
   private int dayTextColorResId;
   private int titleTextStyle;
+  private int rowSpacingDp = 0;
+  private boolean drawDividers = true;
   private boolean displayHeader;
   private int headerTextColor;
   private boolean displayDayNamesHeaderRow;
@@ -395,6 +397,16 @@ public class CalendarPickerView extends ListView {
       monthsReverseOrder = monthsRevOrder;
       return this;
     }
+
+    public FluentInitializer setRowSpacingDp(int dp) {
+      rowSpacingDp = dp;
+      return this;
+    }
+
+    public FluentInitializer drawDividers(boolean draw) {
+      drawDividers = draw;
+      return this;
+    }
   }
 
   private void validateAndUpdate() {
@@ -671,6 +683,9 @@ public class CalendarPickerView extends ListView {
       if (selectedCells.size() == 0 || !selectedCells.get(0).equals(cell)) {
         selectedCells.add(cell);
         cell.setSelected(true);
+        if(selectionMode == SelectionMode.RANGE){
+            cell.setRangeState(RangeState.FIRST_OVERALL);
+        }
       }
       selectedCals.add(newlySelectedCal);
 
@@ -853,8 +868,8 @@ public class CalendarPickerView extends ListView {
           || !monthView.getTag(R.id.day_view_adapter_class).equals(dayViewAdapter.getClass())) {
         monthView =
             MonthView.create(parent, inflater, weekdayNameFormat, listener, today, dividerColor,
-                dayBackgroundResId, dayTextColorResId, titleTextStyle, displayHeader,
-                headerTextColor, displayDayNamesHeaderRow, decorators, locale, dayViewAdapter);
+                dayBackgroundResId, dayTextColorResId, titleTextStyle, rowSpacingDp, displayHeader,
+                headerTextColor, displayDayNamesHeaderRow, decorators, locale, dayViewAdapter, drawDividers);
         monthView.setTag(R.id.day_view_adapter_class, dayViewAdapter.getClass());
       } else {
         monthView.setDecorators(decorators);

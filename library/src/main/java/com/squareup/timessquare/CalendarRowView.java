@@ -3,6 +3,8 @@ package com.squareup.timessquare;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,9 +19,15 @@ import static android.view.View.MeasureSpec.makeMeasureSpec;
 public class CalendarRowView extends ViewGroup implements View.OnClickListener {
   private boolean isHeaderRow;
   private MonthView.Listener listener;
+  private int rowSpacing = 0;
+  private int cellDateStyle;
 
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
+    TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CalendarPickerView);
+    cellDateStyle = a.getResourceId(R.styleable.CalendarPickerView_tsquare_calendarCellDateTextStyle,
+            R.style.CalendarCell_CalendarDate);
+    a.recycle();
   }
 
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
@@ -46,9 +54,24 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
       }
     }
     final int widthWithPadding = totalWidth + getPaddingLeft() + getPaddingRight();
-    final int heightWithPadding = rowHeight + getPaddingTop() + getPaddingBottom();
+    final int heightWithPadding = rowHeight + getPaddingTop() + getPaddingBottom() + rowSpacing;
     setMeasuredDimension(widthWithPadding, heightWithPadding);
+
+    if(rowSpacing > 0) {
+      MarginLayoutParams params = new MarginLayoutParams(getLayoutParams());
+      params.setMargins(0, rowSpacing, 0, 0);
+      setLayoutParams(params);
+      requestLayout();
+    }
+
     Logr.d("Row.onMeasure %d ms", System.currentTimeMillis() - start);
+  }
+
+  @Override
+  protected void onAttachedToWindow()
+  {
+    super.onAttachedToWindow();
+
   }
 
   @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -59,7 +82,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
       final View child = getChildAt(c);
       int l = ((c + 0) * width) / 7;
       int r = ((c + 1) * width) / 7;
-      child.layout(l, 0, r, cellHeight);
+      child.layout(l, 0, r, cellHeight - rowSpacing);
     }
     Logr.d("Row.onLayout %d ms", System.currentTimeMillis() - start);
   }
@@ -84,7 +107,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
       if (getChildAt(i) instanceof CalendarCellView) {
         CalendarCellView cell = ((CalendarCellView) getChildAt(i));
         cell.removeAllViews();
-        adapter.makeCellView(cell);
+        adapter.makeCellView(cell, cellDateStyle);
       }
     }
   }
@@ -124,4 +147,11 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
       }
     }
   }
+
+  public void setRowSpacingDp(int dp) {
+    if(getContext() != null && dp >= 0) {
+      rowSpacing = (int) (dp * getContext().getResources().getDisplayMetrics().density);
+    }
+  }
+
 }
