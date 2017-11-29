@@ -20,14 +20,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
   private boolean isHeaderRow;
   private MonthView.Listener listener;
   private int rowSpacing = 0;
-  private int cellDateStyle;
 
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CalendarPickerView);
-    cellDateStyle = a.getResourceId(R.styleable.CalendarPickerView_tsquare_calendarCellDateTextStyle,
-            R.style.CalendarCell_CalendarDate);
-    a.recycle();
   }
 
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
@@ -107,7 +102,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
       if (getChildAt(i) instanceof CalendarCellView) {
         CalendarCellView cell = ((CalendarCellView) getChildAt(i));
         cell.removeAllViews();
-        adapter.makeCellView(cell, cellDateStyle);
+        adapter.makeCellView(cell);
       }
     }
   }

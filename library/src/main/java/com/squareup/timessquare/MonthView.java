@@ -31,7 +31,7 @@ public class MonthView extends LinearLayout {
       int headerTextColor, boolean showDayNamesHeaderRowView, Locale locale,
       DayViewAdapter adapter, boolean drawDividers) {
     return create(parent, inflater, weekdayNameFormat, listener, today, dividerColor,
-        dayBackgroundResId, dayTextColorResId, titleTextStyle, rowSpacingDp, displayHeader, headerTextColor,
+        dayBackgroundResId, dayTextColorResId, titleTextStyle,rowSpacingDp, displayHeader, headerTextColor,
         showDayNamesHeaderRowView, null, locale, adapter, drawDividers);
   }
 

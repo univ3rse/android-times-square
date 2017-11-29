@@ -6,7 +6,6 @@
     <attr name="tsquare_dayBackground" format="reference"/>
     <attr name="tsquare_dayTextColor" format="color"/>
     <attr name="tsquare_titleTextStyle" format="reference"/>
-    <attr name="tsquare_calendarCellDateTextStyle" format="reference"/>
     <attr name="tsquare_displayHeader" format="boolean"/>
     <attr name="tsquare_displayDayNamesHeaderRow" format="boolean"/>
     <attr name="tsquare_headerTextColor" format="color"/>

@@ -75,9 +75,9 @@ public class CalendarGridView extends ViewGroup {
   }
 
   public void setRowSpacing(int dp){
-      for (int i = 0; i < getChildCount(); i++) {
-          ((CalendarRowView) getChildAt(i)).setRowSpacingDp(dp);
-      }
+    for (int i = 0; i < getChildCount(); i++) {
+      ((CalendarRowView) getChildAt(i)).setRowSpacingDp(dp);
+    }
   }
 
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
