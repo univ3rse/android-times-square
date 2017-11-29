@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,11 +44,29 @@ public class SampleTimesSquareActivity extends Activity {
 
     final Calendar lastYear = Calendar.getInstance();
     lastYear.add(Calendar.YEAR, -1);
-
+ArrayList<Date> list = new ArrayList<>();
+list.add(new Date());
     calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-    calendar.init(lastYear.getTime(), nextYear.getTime()) //
-        .inMode(SelectionMode.SINGLE) //
-        .withSelectedDate(new Date());
+
+
+    calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener()
+    {
+      @Override
+      public void onDateSelected(Date date)
+      {
+        Log.i("","");
+      }
+
+      @Override
+      public void onDateUnselected(Date date)
+      {
+        Log.i("","");
+      }
+    });
+
+    calendar.init(new Date(), nextYear.getTime()) //
+            .inMode(SelectionMode.RANGE).setRowSpacingDp(8).drawDividers(false);
+    calendar.setDateTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
     initButtonListeners(nextYear, lastYear);
   }
@@ -129,9 +148,10 @@ public class SampleTimesSquareActivity extends Activity {
         today.add(Calendar.DATE, 5);
         dates.add(today.getTime());
         calendar.setDecorators(Collections.<CalendarCellDecorator>emptyList());
-        calendar.init(new Date(), nextYear.getTime()) //
-            .inMode(SelectionMode.RANGE) //
-            .withSelectedDates(dates);
+        calendar.init(lastYear.getTime(), nextYear.getTime()) //
+            .inMode(SelectionMode.RANGE);
+        calendar.setDivider(null);
+
       }
     });
 

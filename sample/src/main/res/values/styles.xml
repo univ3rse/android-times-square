@@ -1,10 +1,26 @@
 <!-- Copyright 2012 Square, Inc. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <style name="CustomCalendarTitle">
-    <item name="android:textSize">@dimen/calendar_text_medium</item>
-    <item name="android:gravity">start|left</item>
-    <item name="android:paddingBottom">@dimen/calendar_month_title_bottommargin</item>
-    <item name="android:paddingTop">@dimen/calendar_month_topmargin</item>
-    <item name="android:color">@color/custom_calendar_text_selector</item>
-  </style>
+
+    <style name="CustomCalendarTitle">
+        <item name="android:textSize">@dimen/calendar_text_medium</item>
+        <item name="android:gravity">start|left</item>
+        <item name="android:paddingBottom">@dimen/calendar_month_title_bottommargin</item>
+        <item name="android:paddingTop">@dimen/calendar_month_topmargin</item>
+        <item name="android:paddingLeft">@dimen/calendar_month_topmargin</item>
+        <item name="android:textColor">@color/custom_text_active</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <style name="CustomCalendarCell">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">center</item>
+    </style>
+
+    <style name="CustomCalendarCell.CellDateTextStyle">
+        <item name="android:textSize">@dimen/calendar_text_medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

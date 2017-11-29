@@ -4,13 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     >
   <HorizontalScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:scrollbarStyle="outsideInset"
       >
 
     <LinearLayout
@@ -106,9 +106,11 @@
       android:background="#FFFFFF"
       android:clipToPadding="false"
       android:paddingBottom="16dp"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:scrollbarStyle="outsideOverlay"
+      app:tsquare_dayBackground="@drawable/custom_calendar_bg_selector"
+      app:tsquare_dayTextColor="@color/custom_calendar_text_selector"
+      app:tsquare_titleTextStyle="@style/CustomCalendarTitle"
+      android:scrollbars="none"
+      app:tsquare_displayHeader="false"
       />
   <Button
       android:id="@+id/done_button"
